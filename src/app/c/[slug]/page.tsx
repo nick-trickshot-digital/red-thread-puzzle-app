@@ -563,8 +563,7 @@ export default function CampaignPage() {
               >
                 {isSubmitting ? 'Submitting...' : '> SUBMIT ENTRY'}
               </NeonButton>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
 
