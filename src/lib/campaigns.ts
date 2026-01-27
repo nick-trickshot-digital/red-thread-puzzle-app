@@ -1,5 +1,8 @@
 import campaignsData from '@/data/campaigns.json';
-import { Campaign, Question } from '@/types/campaign';
+import { Campaign } from '@/types/campaign';
+
+// Type assertion for JSON data
+const campaigns = campaignsData.campaigns as unknown as Campaign[];
 
 // Seeded random number generator for consistent shuffling per user
 function seededRandom(seed: string): () => number {
@@ -30,7 +33,7 @@ function shuffleArray<T>(array: T[], seed: string): T[] {
 }
 
 export function getCampaign(slug: string): Campaign | null {
-  const campaign = campaignsData.campaigns.find((c) => c.slug === slug);
+  const campaign = campaigns.find((c) => c.slug === slug);
   return campaign || null;
 }
 
@@ -51,7 +54,7 @@ export function getCampaignWithShuffledQuestions(slug: string, userSeed: string)
 }
 
 export function getAllCampaignSlugs(): string[] {
-  return campaignsData.campaigns.map((c) => c.slug);
+  return campaigns.map((c) => c.slug);
 }
 
 export function getCodeLength(campaign: Campaign): number {
