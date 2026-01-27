@@ -1,0 +1,106 @@
+{
+  "campaigns": [
+    {
+      "slug": "reimbursement-vault-2026",
+      "version": "4.0",
+      "title": "Reimbursement Vault",
+      "theme": {
+        "accent": "#e30613"
+      },
+      "copy": {
+        "landingTitle": "Can you solve the clues to unlock reimbursement and your chance to win a",
+        "landingBody": "virtual reality headset?",
+        "howToPlaySteps": [
+          "Grab a pair of redthread lenses",
+          "Solve the five clues in the app and hidden on our booth. Remember, our redthread codebreakers are on hand to assist you",
+          "Select the first letter of each answer and tap it to lock it in",
+          "Once all the letters are locked in, unscramble them on a final screen to reveal the keyword that unlocks the vault"
+        ],
+        "prizeTitle": "Vault Unlocked!",
+        "prizeBody": "Congratulations! You've cracked the code. Enter your details for a chance to win a Quest 3S virtual reality headset."
+      },
+      "entry": {
+        "entryFormUrl": "https://example.com/entry-form",
+        "entryCta": "ENTER DETAILS"
+      },
+      "code": {
+        "finalAnswer": "PRICE",
+        "codeLength": 5,
+        "caseSensitive": false,
+        "stripSpaces": true
+      },
+      "questions": [
+        {
+          "prompt": "Italian pharma company known for treating rare diseases",
+          "inputMode": "LETTER_PICKER",
+          "accepted": {
+            "type": "LETTER",
+            "value": "C"
+          },
+          "rewards": {
+            "type": "LOCK_LETTER",
+            "letter": "C",
+            "position": null
+          },
+          "helperText": "CHIESI"
+        },
+        {
+          "prompt": "This pharma company is part flower",
+          "inputMode": "LETTER_PICKER",
+          "accepted": {
+            "type": "LETTER",
+            "value": "E"
+          },
+          "rewards": {
+            "type": "LOCK_LETTER",
+            "letter": "E",
+            "position": null
+          },
+          "helperText": "ELI LILLY"
+        },
+        {
+          "prompt": "Biotech with a name that evokes a classic \"aha!\" moment",
+          "inputMode": "LETTER_PICKER",
+          "accepted": {
+            "type": "LETTER",
+            "value": "I"
+          },
+          "rewards": {
+            "type": "LOCK_LETTER",
+            "letter": "I",
+            "position": null
+          },
+          "helperText": "INCYTE"
+        },
+        {
+          "prompt": "Pharma company and COVID-19 vaccine manufacturer",
+          "inputMode": "LETTER_PICKER",
+          "accepted": {
+            "type": "LETTER",
+            "value": "P"
+          },
+          "rewards": {
+            "type": "LOCK_LETTER",
+            "letter": "P",
+            "position": null
+          },
+          "helperText": "PFIZER"
+        },
+        {
+          "prompt": "Pharma company, or the pulse that sets the pace",
+          "inputMode": "LETTER_PICKER",
+          "accepted": {
+            "type": "LETTER",
+            "value": "R"
+          },
+          "rewards": {
+            "type": "LOCK_LETTER",
+            "letter": "R",
+            "position": null
+          },
+          "helperText": "RHYTHM"
+        }
+      ]
+    }
+  ]
+}
