@@ -224,37 +224,36 @@ export default function CampaignPage() {
   if (screen.type === 'how-to-play') {
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        {/* Title in upper area */}
-        <div className="absolute top-[30%] left-0 right-0 text-center">
-          <h1 className="text-2xl font-bold tracking-wide">HOW TO PLAY</h1>
-          <svg className="w-6 h-6 mt-2 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        {/* Steps at bottom */}
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
-          <div className="max-w-md mx-auto space-y-3">
-            {campaign.copy.howToPlaySteps.map((step, index) => (
-              <div key={index} className="flex items-start gap-2">
-                <span className="text-base font-bold flex-shrink-0" style={{ color: campaign.theme.accent }}>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <p className="text-white text-sm leading-snug">{step}</p>
-              </div>
-            ))}
-            <div className="pt-2">
-              <NeonButton
-                onClick={() => {
-                  const firstUnanswered = getFirstUnansweredIndex();
-                  setScreen({ type: 'question', index: firstUnanswered });
-                }}
-                accentColor={campaign.theme.accent}
-                fullWidth
-              >
-                &gt; LETS GO
-              </NeonButton>
+          <div className="max-w-md mx-auto space-y-4">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold tracking-wide">HOW TO PLAY</h1>
+              <svg className="w-5 h-5 mt-1 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </div>
+
+            <div className="space-y-2">
+              {campaign.copy.howToPlaySteps.map((step, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <span className="text-base font-bold flex-shrink-0" style={{ color: campaign.theme.accent }}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="text-white text-sm leading-snug">{step}</p>
+                </div>
+              ))}
+            </div>
+
+            <NeonButton
+              onClick={() => {
+                const firstUnanswered = getFirstUnansweredIndex();
+                setScreen({ type: 'question', index: firstUnanswered });
+              }}
+              accentColor={campaign.theme.accent}
+              fullWidth
+            >
+              &gt; LETS GO
+            </NeonButton>
           </div>
         </div>
       </ScreenLayout>
@@ -275,16 +274,12 @@ export default function CampaignPage() {
 
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        {/* Question number in upper area */}
-        <div className="absolute top-[28%] left-0 right-0 text-center">
-          <h1 className="text-4xl font-bold" style={{ color: campaign.theme.accent }}>
-            Q{questionNumber}
-          </h1>
-        </div>
-
-        {/* Content at bottom */}
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
           <div className="max-w-md w-full mx-auto flex flex-col items-center gap-3">
+            <h1 className="text-3xl font-bold" style={{ color: campaign.theme.accent }}>
+              Q{questionNumber}
+            </h1>
+
             <p className="text-base leading-snug text-white text-center">
               {question.prompt}
             </p>
@@ -340,29 +335,26 @@ export default function CampaignPage() {
           </div>
         )}
 
-        {/* Letters in upper area */}
-        <div className={`absolute top-[28%] left-0 right-0 z-20 ${showVaultScene ? 'opacity-0 transition-opacity duration-500' : ''}`}>
-          <div className="flex items-center justify-center gap-2">
-            {progress.lockedLetters.map((letter, i) => (
-              <div
-                key={i}
-                className="w-11 h-11 rounded-full flex items-center justify-center text-base font-bold"
-                style={{
-                  backgroundColor: '#1e1a3a',
-                  border: `2px solid ${campaign.theme.accent}`,
-                  boxShadow: `0 0 12px ${campaign.theme.accent}50`,
-                  color: '#ffffff',
-                }}
-              >
-                {letter}
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Content at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 z-20">
+        <div className={`absolute bottom-0 left-0 right-0 px-6 pb-6 z-20 ${showVaultScene ? 'opacity-0 transition-opacity duration-500' : ''}`}>
           <div className="max-w-md mx-auto space-y-3">
+            <div className="flex items-center justify-center gap-2">
+              {progress.lockedLetters.map((letter, i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
+                  style={{
+                    backgroundColor: '#1e1a3a',
+                    border: `2px solid ${campaign.theme.accent}`,
+                    boxShadow: `0 0 10px ${campaign.theme.accent}50`,
+                    color: '#ffffff',
+                  }}
+                >
+                  {letter}
+                </div>
+              ))}
+            </div>
+
             <p className="text-sm leading-snug text-white text-center">
               Unscramble the letters to reveal the vault keyword. Type it below and submit to see if you&apos;ve <span className="font-bold">cracked the code</span>
             </p>
