@@ -10,8 +10,8 @@ export default function ScreenLayout({
   children,
 }: ScreenLayoutProps) {
   return (
-    <div className="h-screen h-[100dvh] flex flex-col overflow-hidden">
-      <main className="flex-1 flex flex-col">{children}</main>
+    <div className="fixed inset-0 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col relative">{children}</main>
     </div>
   );
 }

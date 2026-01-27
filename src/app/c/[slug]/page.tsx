@@ -196,32 +196,24 @@ export default function CampaignPage() {
   if (screen.type === 'landing') {
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col">
-          {/* Spacer for background image area */}
-          <div className="flex-1" />
-
-          {/* Content anchored to bottom */}
-          <div className="px-6 pb-8">
-            <div className="max-w-md mx-auto w-full text-center space-y-6">
-              <img
-                src="/images/logo.png"
-                alt="Redthread Market Access"
-                className="mx-auto w-36"
-              />
-
-              <p className="text-white text-xl leading-relaxed">
-                {campaign.copy.landingTitle}{' '}
-                <span className="font-bold italic">{campaign.copy.landingBody}</span>
-              </p>
-
-              <NeonButton
-                onClick={() => setScreen({ type: 'how-to-play' })}
-                accentColor={campaign.theme.accent}
-                fullWidth
-              >
-                &gt; GET STARTED
-              </NeonButton>
-            </div>
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+          <div className="max-w-md mx-auto w-full text-center space-y-4">
+            <img
+              src="/images/logo.png"
+              alt="Redthread Market Access"
+              className="mx-auto w-32"
+            />
+            <p className="text-white text-lg leading-snug">
+              {campaign.copy.landingTitle}{' '}
+              <span className="font-bold italic">{campaign.copy.landingBody}</span>
+            </p>
+            <NeonButton
+              onClick={() => setScreen({ type: 'how-to-play' })}
+              accentColor={campaign.theme.accent}
+              fullWidth
+            >
+              &gt; GET STARTED
+            </NeonButton>
           </div>
         </div>
       </ScreenLayout>
@@ -232,52 +224,36 @@ export default function CampaignPage() {
   if (screen.type === 'how-to-play') {
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col">
-          {/* Title area - positioned over background image */}
-          <div className="h-[35vh] flex flex-col items-center justify-end pb-4">
-            <h1 className="text-3xl font-bold tracking-wide">HOW TO PLAY</h1>
-            <svg
-              className="w-8 h-8 mt-4 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
+        {/* Title in upper area */}
+        <div className="absolute top-[30%] left-0 right-0 text-center">
+          <h1 className="text-2xl font-bold tracking-wide">HOW TO PLAY</h1>
+          <svg className="w-6 h-6 mt-2 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
 
-          {/* Steps area - anchored to bottom */}
-          <div className="flex-1 flex flex-col justify-end px-6 pb-8">
-            <div className="max-w-md mx-auto space-y-4">
-              {campaign.copy.howToPlaySteps.map((step, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <span
-                    className="text-lg font-bold flex-shrink-0"
-                    style={{ color: campaign.theme.accent }}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <p className="text-white text-sm leading-relaxed">{step}</p>
-                </div>
-              ))}
-
-              <div className="pt-4">
-                <NeonButton
-                  onClick={() => {
-                    const firstUnanswered = getFirstUnansweredIndex();
-                    setScreen({ type: 'question', index: firstUnanswered });
-                  }}
-                  accentColor={campaign.theme.accent}
-                  fullWidth
-                >
-                  &gt; LETS GO
-                </NeonButton>
+        {/* Steps at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+          <div className="max-w-md mx-auto space-y-3">
+            {campaign.copy.howToPlaySteps.map((step, index) => (
+              <div key={index} className="flex items-start gap-2">
+                <span className="text-base font-bold flex-shrink-0" style={{ color: campaign.theme.accent }}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <p className="text-white text-sm leading-snug">{step}</p>
               </div>
+            ))}
+            <div className="pt-2">
+              <NeonButton
+                onClick={() => {
+                  const firstUnanswered = getFirstUnansweredIndex();
+                  setScreen({ type: 'question', index: firstUnanswered });
+                }}
+                accentColor={campaign.theme.accent}
+                fullWidth
+              >
+                &gt; LETS GO
+              </NeonButton>
             </div>
           </div>
         </div>
@@ -299,50 +275,43 @@ export default function CampaignPage() {
 
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col">
-          {/* Question number area - positioned over background image */}
-          <div className="h-[35vh] flex flex-col items-center justify-end pb-2">
-            <h1
-              className="text-5xl font-bold"
-              style={{ color: campaign.theme.accent }}
-            >
-              Q{questionNumber}
-            </h1>
-          </div>
+        {/* Question number in upper area */}
+        <div className="absolute top-[28%] left-0 right-0 text-center">
+          <h1 className="text-4xl font-bold" style={{ color: campaign.theme.accent }}>
+            Q{questionNumber}
+          </h1>
+        </div>
 
-          {/* Question content area - anchored to bottom */}
-          <div className="flex-1 flex flex-col justify-end px-6 pb-8">
-            <div className="max-w-md w-full mx-auto flex flex-col items-center gap-4">
-              <div className="text-center">
-                <p className="text-lg leading-relaxed text-white">
-                  {question.prompt}
-                </p>
-              </div>
+        {/* Content at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+          <div className="max-w-md w-full mx-auto flex flex-col items-center gap-3">
+            <p className="text-base leading-snug text-white text-center">
+              {question.prompt}
+            </p>
 
-              <LetterPicker
-                value={selectedLetter}
-                onPrev={handlePrevLetter}
-                onNext={handleNextLetter}
-                onJumpToStart={handleJumpToStart}
-                onJumpToEnd={handleJumpToEnd}
+            <LetterPicker
+              value={selectedLetter}
+              onPrev={handlePrevLetter}
+              onNext={handleNextLetter}
+              onJumpToStart={handleJumpToStart}
+              onJumpToEnd={handleJumpToEnd}
+              accentColor={campaign.theme.accent}
+            />
+
+            <ProgressCircles
+              count={codeLength}
+              letters={progress.lockedLetters}
+              accentColor={campaign.theme.accent}
+            />
+
+            <div className="w-full pt-1">
+              <NeonButton
+                onClick={() => handleQuestionSubmit(questionIndex)}
                 accentColor={campaign.theme.accent}
-              />
-
-              <ProgressCircles
-                count={codeLength}
-                letters={progress.lockedLetters}
-                accentColor={campaign.theme.accent}
-              />
-
-              <div className="w-full pt-2">
-                <NeonButton
-                  onClick={() => handleQuestionSubmit(questionIndex)}
-                  accentColor={campaign.theme.accent}
-                  fullWidth
-                >
-                  &gt; LOCK IT IN
-                </NeonButton>
-              </div>
+                fullWidth
+              >
+                &gt; LOCK IT IN
+              </NeonButton>
             </div>
           </div>
         </div>
@@ -364,68 +333,63 @@ export default function CampaignPage() {
 
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col relative">
-          {/* 3D Vault Scene - shows when unlocking */}
-          {showVaultScene && (
-            <div className="absolute inset-0 z-10">
-              <VaultScene />
-            </div>
-          )}
-
-          {/* Letters area - positioned over background image */}
-          <div className={`h-[35vh] flex flex-col items-center justify-end pb-4 relative z-20 ${showVaultScene ? 'opacity-0 transition-opacity duration-500' : ''}`}>
-            <div className="flex items-center justify-center gap-2">
-              {progress.lockedLetters.map((letter, i) => (
-                <div
-                  key={i}
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
-                  style={{
-                    backgroundColor: '#1e1a3a',
-                    border: `2px solid ${campaign.theme.accent}`,
-                    boxShadow: `0 0 15px ${campaign.theme.accent}50`,
-                    color: '#ffffff',
-                  }}
-                >
-                  {letter}
-                </div>
-              ))}
-            </div>
+        {/* 3D Vault Scene - shows when unlocking */}
+        {showVaultScene && (
+          <div className="absolute inset-0 z-10">
+            <VaultScene />
           </div>
+        )}
 
-          {/* Content area - anchored to bottom */}
-          <div className="flex-1 flex flex-col justify-end px-6 pb-8">
-            <div className="max-w-md mx-auto space-y-4">
-              <div className="text-center">
-                <p className="text-base leading-relaxed text-white">
-                  Unscramble the letters to reveal the vault keyword. Type it into the box below and submit to see if you&apos;ve{' '}
-                  <span className="font-bold">cracked the code</span>
-                </p>
+        {/* Letters in upper area */}
+        <div className={`absolute top-[28%] left-0 right-0 z-20 ${showVaultScene ? 'opacity-0 transition-opacity duration-500' : ''}`}>
+          <div className="flex items-center justify-center gap-2">
+            {progress.lockedLetters.map((letter, i) => (
+              <div
+                key={i}
+                className="w-11 h-11 rounded-full flex items-center justify-center text-base font-bold"
+                style={{
+                  backgroundColor: '#1e1a3a',
+                  border: `2px solid ${campaign.theme.accent}`,
+                  boxShadow: `0 0 12px ${campaign.theme.accent}50`,
+                  color: '#ffffff',
+                }}
+              >
+                {letter}
               </div>
+            ))}
+          </div>
+        </div>
 
-              <form onSubmit={handleFinalSubmit} className="space-y-4">
-                <input
-                  type="text"
-                  value={finalInput}
-                  onChange={(e) => setFinalInput(e.target.value.toUpperCase())}
-                  placeholder="TYPE ANSWER"
-                  className="w-full px-6 py-3 min-h-[52px] rounded-lg text-center text-xl font-bold tracking-widest uppercase bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white placeholder-white/40"
-                  autoComplete="off"
-                  autoCapitalize="characters"
-                  autoCorrect="off"
-                  spellCheck="false"
-                  enterKeyHint="done"
-                />
+        {/* Content at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 z-20">
+          <div className="max-w-md mx-auto space-y-3">
+            <p className="text-sm leading-snug text-white text-center">
+              Unscramble the letters to reveal the vault keyword. Type it below and submit to see if you&apos;ve <span className="font-bold">cracked the code</span>
+            </p>
 
-                <NeonButton
-                  type="submit"
-                  accentColor={campaign.theme.accent}
-                  disabled={!canSubmit}
-                  fullWidth
-                >
-                  &gt; SUBMIT CODE
-                </NeonButton>
-              </form>
-            </div>
+            <form onSubmit={handleFinalSubmit} className="space-y-3">
+              <input
+                type="text"
+                value={finalInput}
+                onChange={(e) => setFinalInput(e.target.value.toUpperCase())}
+                placeholder="TYPE ANSWER"
+                className="w-full px-4 py-3 min-h-[48px] rounded-lg text-center text-lg font-bold tracking-widest uppercase bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white placeholder-white/40"
+                autoComplete="off"
+                autoCapitalize="characters"
+                autoCorrect="off"
+                spellCheck="false"
+                enterKeyHint="done"
+              />
+
+              <NeonButton
+                type="submit"
+                accentColor={campaign.theme.accent}
+                disabled={!canSubmit}
+                fullWidth
+              >
+                &gt; SUBMIT CODE
+              </NeonButton>
+            </form>
           </div>
         </div>
 
@@ -444,39 +408,33 @@ export default function CampaignPage() {
   if (screen.type === 'unlocked') {
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col relative">
-          {/* 3D Vault Scene - always visible on unlocked screen */}
-          <div className="absolute inset-0 z-10">
-            <VaultScene autoOpen />
-          </div>
+        {/* 3D Vault Scene */}
+        <div className="absolute inset-0 z-10">
+          <VaultScene autoOpen />
+        </div>
 
-          {/* Content area - positioned at bottom, allows taps through to vault */}
-          <div className="flex-1 flex flex-col justify-end px-6 pb-8 relative z-20 pointer-events-none">
-            <div className="max-w-md mx-auto text-center space-y-4 pointer-events-auto">
-              <div>
-                <h1 className="text-3xl font-bold text-white">Congratulations!</h1>
-                <p className="text-xl italic text-white mt-1">
-                  you&apos;re an expert codebreaker!
-                </p>
-              </div>
-
-              <p className="text-sm text-white/80">
-                Tap the vault to open it
-              </p>
-
-              <p className="text-base text-white leading-relaxed">
-                Enter your details for a chance to win a{' '}
-                <span className="font-bold italic">Quest 3S virtual reality headset</span>
-              </p>
-
-              <NeonButton
-                onClick={() => setScreen({ type: 'enter' })}
-                accentColor={campaign.theme.accent}
-                fullWidth
-              >
-                &gt; {campaign.entry.entryCta}
-              </NeonButton>
+        {/* Content at bottom - allows taps through to vault */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 z-20 pointer-events-none">
+          <div className="max-w-md mx-auto text-center space-y-3 pointer-events-auto">
+            <div>
+              <h1 className="text-2xl font-bold text-white">Congratulations!</h1>
+              <p className="text-lg italic text-white">you&apos;re an expert codebreaker!</p>
             </div>
+
+            <p className="text-xs text-white/80">Tap the vault to open it</p>
+
+            <p className="text-sm text-white leading-snug">
+              Enter your details for a chance to win a{' '}
+              <span className="font-bold italic">Quest 3S virtual reality headset</span>
+            </p>
+
+            <NeonButton
+              onClick={() => setScreen({ type: 'enter' })}
+              accentColor={campaign.theme.accent}
+              fullWidth
+            >
+              &gt; {campaign.entry.entryCta}
+            </NeonButton>
           </div>
         </div>
       </ScreenLayout>
@@ -532,16 +490,11 @@ export default function CampaignPage() {
     if (submitSuccess) {
       return (
         <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1" />
-            <div className="px-6 pb-8">
-              <div className="max-w-md mx-auto text-center space-y-4">
-                <h1 className="text-3xl font-bold text-white">Thank You!</h1>
-                <p className="text-lg text-white leading-relaxed">
-                  Your entry has been submitted. Good luck!
-                </p>
-                <ResetLink onReset={handleReset} />
-              </div>
+          <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+            <div className="max-w-md mx-auto text-center space-y-3">
+              <h1 className="text-2xl font-bold text-white">Thank You!</h1>
+              <p className="text-base text-white">Your entry has been submitted. Good luck!</p>
+              <ResetLink onReset={handleReset} />
             </div>
           </div>
         </ScreenLayout>
@@ -550,80 +503,66 @@ export default function CampaignPage() {
 
     return (
       <ScreenLayout accentColor={campaign.theme.accent} showVaultHeader={false}>
-        <div className="flex-1 flex flex-col">
-          <div className="flex-1" />
-          <div className="px-6 pb-8">
-            <div className="max-w-md mx-auto">
-              <form onSubmit={handleFormSubmit} className="space-y-3">
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First Name"
-                  required
-                  autoComplete="given-name"
-                  autoCapitalize="words"
-                  enterKeyHint="next"
-                  className="w-full px-4 py-3 min-h-[48px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
-                />
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
-                  required
-                  autoComplete="family-name"
-                  autoCapitalize="words"
-                  enterKeyHint="next"
-                  className="w-full px-4 py-3 min-h-[48px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
-                />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email Address"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                  enterKeyHint="done"
-                  className="w-full px-4 py-3 min-h-[48px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
-                />
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+          <div className="max-w-md mx-auto">
+            <form onSubmit={handleFormSubmit} className="space-y-2">
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First Name"
+                required
+                autoComplete="given-name"
+                autoCapitalize="words"
+                enterKeyHint="next"
+                className="w-full px-4 py-2.5 min-h-[44px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
+              />
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last Name"
+                required
+                autoComplete="family-name"
+                autoCapitalize="words"
+                enterKeyHint="next"
+                className="w-full px-4 py-2.5 min-h-[44px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email Address"
+                required
+                autoComplete="email"
+                inputMode="email"
+                enterKeyHint="done"
+                className="w-full px-4 py-2.5 min-h-[44px] rounded-lg bg-white/10 border-2 border-white/50 focus:border-white focus:outline-none transition-all text-white text-base placeholder-white/70"
+              />
 
-                <div className="pt-2">
-                  <p className="text-xs text-white/70 leading-relaxed mb-3">
-                    By entering, your data will be used to administer the competition and contact the winner. See our{' '}
-                    <a
-                      href="https://redthreadmarketaccess.com/privacy-policy/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-bold underline"
-                    >
-                      Privacy Policy
-                    </a>
-                    .
-                  </p>
+              <p className="text-xs text-white/70 leading-snug pt-1">
+                By entering, your data will be used to administer the competition. See our{' '}
+                <a href="https://redthreadmarketaccess.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="font-bold underline">Privacy Policy</a>.
+              </p>
 
-                  <label className="flex items-center gap-3 cursor-pointer mb-4 p-2 -m-2 rounded-lg active:bg-white/5 transition-colors touch-manipulation">
-                    <input
-                      type="checkbox"
-                      checked={agreedToTerms}
-                      onChange={(e) => setAgreedToTerms(e.target.checked)}
-                      className="mt-0.5 w-6 h-6 min-w-[24px] rounded border-2 border-white/50 bg-transparent checked:bg-green-500 checked:border-green-500 cursor-pointer accent-green-500"
-                    />
-                    <span className="text-sm text-white/80">
-                      I agree to the terms and conditions
-                    </span>
-                  </label>
+              <label className="flex items-center gap-2 cursor-pointer py-2 touch-manipulation">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="w-5 h-5 min-w-[20px] rounded border-2 border-white/50 bg-transparent checked:bg-green-500 checked:border-green-500 cursor-pointer accent-green-500"
+                />
+                <span className="text-sm text-white/80">I agree to the terms</span>
+              </label>
 
-                  <NeonButton
-                    type="submit"
-                    accentColor={campaign.theme.accent}
-                    disabled={isSubmitting || !agreedToTerms}
-                    fullWidth
-                  >
-                    {isSubmitting ? 'Submitting...' : '> SUBMIT ENTRY'}
-                  </NeonButton>
-                </div>
+              <NeonButton
+                type="submit"
+                accentColor={campaign.theme.accent}
+                disabled={isSubmitting || !agreedToTerms}
+                fullWidth
+              >
+                {isSubmitting ? 'Submitting...' : '> SUBMIT ENTRY'}
+              </NeonButton>
               </form>
             </div>
           </div>
