@@ -19,7 +19,7 @@ export default function FeedbackToast({
 }: FeedbackToastProps) {
   useEffect(() => {
     if (visible) {
-      const timer = setTimeout(onClose, 2000);
+      const timer = setTimeout(onClose, 1200);
       return () => clearTimeout(timer);
     }
   }, [visible, onClose]);

@@ -77,7 +77,7 @@ export default function LetterPicker({
       <div className="flex items-center justify-center gap-2">
         <button
           onClick={onPrev}
-          className="w-14 h-14 flex items-center justify-center text-5xl text-white/70 hover:text-white active:text-white active:scale-90 transition-all touch-manipulation select-none"
+          className="w-16 h-16 flex items-center justify-center text-6xl text-white/70 hover:text-white active:text-white active:scale-90 transition-all touch-manipulation select-none"
           aria-label="Previous letter"
         >
           ‹
@@ -107,7 +107,7 @@ export default function LetterPicker({
 
         <button
           onClick={onNext}
-          className="w-14 h-14 flex items-center justify-center text-5xl text-white/70 hover:text-white active:text-white active:scale-90 transition-all touch-manipulation select-none"
+          className="w-16 h-16 flex items-center justify-center text-6xl text-white/70 hover:text-white active:text-white active:scale-90 transition-all touch-manipulation select-none"
           aria-label="Next letter"
         >
           ›
