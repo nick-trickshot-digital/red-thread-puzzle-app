@@ -22,48 +22,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send email using fetch to an email service
-    // For production, configure with your email service (e.g., Resend, SendGrid, etc.)
-
-    // Option 1: Using Resend (recommended)
-    // Uncomment and add RESEND_API_KEY to your .env.local
-    /*
-    const resendResponse = await fetch('https://api.resend.com/emails', {
+    // Send notification email via SendGrid
+    const sgResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'noreply@yourdomain.com',
-        to: 'nick@trickshot.digital',
-        subject: `New Competition Entry: ${campaign}`,
-        html: `
-          <h2>New Competition Entry</h2>
-          <p><strong>Campaign:</strong> ${campaign}</p>
-          <p><strong>First Name:</strong> ${firstName}</p>
-          <p><strong>Last Name:</strong> ${lastName}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
-        `,
+        personalizations: [
+          {
+            to: [{ email: 'nick@trickshot.digital' }],
+            subject: `New Competition Entry: ${campaign}`,
+          },
+        ],
+        from: { email: 'nick@trickshot.digital', name: 'Crack The Code' },
+        content: [
+          {
+            type: 'text/html',
+            value: `
+              <h2>New Competition Entry</h2>
+              <p><strong>Campaign:</strong> ${campaign}</p>
+              <p><strong>First Name:</strong> ${firstName}</p>
+              <p><strong>Last Name:</strong> ${lastName}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
+            `,
+          },
+        ],
       }),
     });
 
-    if (!resendResponse.ok) {
+    if (!sgResponse.ok) {
+      const errorText = await sgResponse.text();
+      console.error('SendGrid error:', sgResponse.status, errorText);
       throw new Error('Failed to send email');
     }
-    */
 
-    // For now, log the submission (replace with email service in production)
-    console.log('New competition entry:', {
-      campaign,
-      firstName,
-      lastName,
-      email,
-      submittedAt: new Date().toISOString(),
-    });
-
-    // You can also store entries in a database here
+    console.log('Entry submitted and email sent:', { campaign, firstName, lastName, email });
 
     return NextResponse.json({ success: true });
   } catch (error) {
