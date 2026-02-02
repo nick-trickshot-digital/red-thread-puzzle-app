@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "Crack The Code <noreply@justclickgo.co.uk>",
+        from: "Crack The Code <noreply@notifications.justclickgo.co.uk>",
         to: "nick@trickshot.digital",
         subject: `New Competition Entry: ${campaign}`,
         html: `
@@ -47,10 +47,7 @@ export async function POST(request: NextRequest) {
     console.log("Resend response:", resendResponse.status, JSON.stringify(responseBody));
 
     if (!resendResponse.ok) {
-      return NextResponse.json(
-        { error: "Failed to send email", details: responseBody },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to send email", details: responseBody }, { status: 500 });
     }
 
     console.log("Entry submitted and email sent:", { campaign, firstName, lastName, email });
