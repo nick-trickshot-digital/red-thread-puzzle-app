@@ -16,57 +16,39 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
     }
 
-    // Send notification email via SendGrid
-    if (!process.env.SENDGRID_API_KEY) {
-      console.error("SENDGRID_API_KEY is not set");
+    // Send notification email via Resend
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not set");
       return NextResponse.json({ error: "Email service not configured" }, { status: 500 });
     }
 
-    console.log("Attempting SendGrid send...");
-    console.log("API key present:", !!process.env.SENDGRID_API_KEY);
-    console.log("API key starts with:", process.env.SENDGRID_API_KEY?.substring(0, 5));
-
-    const payload = {
-      personalizations: [
-        {
-          to: [{ email: "nick@trickshot.digital" }],
-          subject: `New Competition Entry: ${campaign}`
-        }
-      ],
-      from: { email: "nick@justclickgo.co.uk", name: "Crack The Code" },
-      content: [
-        {
-          type: "text/html",
-          value: `
-            <h2>New Competition Entry</h2>
-            <p><strong>Campaign:</strong> ${campaign}</p>
-            <p><strong>First Name:</strong> ${firstName}</p>
-            <p><strong>Last Name:</strong> ${lastName}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
-          `
-        }
-      ]
-    };
-    console.log("SendGrid payload:", JSON.stringify(payload, null, 2));
-
-    const sgResponse = await fetch("https://api.sendgrid.com/v3/mail/send", {
+    const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        from: "Crack The Code <noreply@justclickgo.co.uk>",
+        to: "nick@trickshot.digital",
+        subject: `New Competition Entry: ${campaign}`,
+        html: `
+          <h2>New Competition Entry</h2>
+          <p><strong>Campaign:</strong> ${campaign}</p>
+          <p><strong>First Name:</strong> ${firstName}</p>
+          <p><strong>Last Name:</strong> ${lastName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
+        `
+      })
     });
 
-    console.log("SendGrid response status:", sgResponse.status);
-    const responseBody = await sgResponse.text();
-    console.log("SendGrid response body:", responseBody);
+    const responseBody = await resendResponse.json();
+    console.log("Resend response:", resendResponse.status, JSON.stringify(responseBody));
 
-    if (!sgResponse.ok) {
-      console.error("SendGrid error:", sgResponse.status, responseBody);
+    if (!resendResponse.ok) {
       return NextResponse.json(
-        { error: "Failed to send email", details: responseBody, status: sgResponse.status },
+        { error: "Failed to send email", details: responseBody },
         { status: 500 }
       );
     }
