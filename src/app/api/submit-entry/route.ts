@@ -23,6 +23,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Send notification email via SendGrid
+    if (!process.env.SENDGRID_API_KEY) {
+      console.error('SENDGRID_API_KEY is not set');
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      );
+    }
+
     const sgResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
@@ -36,7 +44,7 @@ export async function POST(request: NextRequest) {
             subject: `New Competition Entry: ${campaign}`,
           },
         ],
-        from: { email: 'nick@trickshot.digital', name: 'Crack The Code' },
+        from: { email: 'noreply@justclickgo.co.uk', name: 'Crack The Code' },
         content: [
           {
             type: 'text/html',
