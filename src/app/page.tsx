@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  redirect('/c/reimbursement-vault-2026');
+  redirect('/c/crackthecode');
 }
