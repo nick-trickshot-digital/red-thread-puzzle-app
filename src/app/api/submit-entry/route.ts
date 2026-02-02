@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         from: "Crack The Code <noreply@notifications.justclickgo.co.uk>",
-        to: "nick@trickshot.digital",
+        to: "nick@redthreadmarketaccess.com",
         subject: `New Competition Entry: ${campaign}`,
         html: `
           <h2>New Competition Entry</h2>
